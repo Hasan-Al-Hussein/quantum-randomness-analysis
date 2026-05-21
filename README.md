@@ -44,24 +44,66 @@ The system pipeline consists of:
 
 # Extraction Efficiency Analysis
 
+## Core Efficiency Equation
+
+The von Neumann extraction efficiency is defined as:
+
+```math
+\eta(p) = p(1-p)
+```
+
+where:
+
+- \( p \) represents the Bernoulli source parameter
+- \( \eta(p) \) represents extraction efficiency
+
+The function reaches maximum efficiency at:
+
+```math
+p = 0.5
+```
+
+which corresponds to an ideal unbiased quantum source.
+
 <p align="center">
   <img src="images/extraction_efficiency.png" width="900"/>
 </p>
 
-The extraction efficiency is modeled as:
+## Sensitivity Approximation
+
+Near the optimal operating point:
 
 ```math
-η(p) = p(1-p)
+p = 0.5 - \delta p
 ```
 
-The analysis demonstrates:
-- quadratic sensitivity near the optimal operating point
-- nonlinear degradation under source bias
-- increased raw-bit cost as uncertainty grows
+the extraction efficiency becomes:
+
+```math
+\eta(0.5-\delta p) \approx 0.25 - (\delta p)^2
+```
+
+This demonstrates the quadratic degradation in efficiency caused by parameter uncertainty.
 
 ---
 
 # Cost & Performance Analysis
+
+## Uniform Bit Generation Cost
+
+The expected raw-bit cost for generating one unbiased random bit is:
+
+```math
+C_u(p) = \frac{1}{p(1-p)}
+```
+
+At the optimal operating point:
+
+```math
+C_u(0.5) = 4
+```
+
+meaning four raw quantum measurements are required on average for one unbiased output bit.
 
 <p align="center">
   <img src="images/cost_analysis_table.png" width="850"/>
@@ -79,6 +121,21 @@ under varying source uncertainty conditions.
 ---
 
 # Throughput & Latency Analysis
+
+## Estimation Precision Bound
+
+Parameter estimation uncertainty is bounded by the Cramér–Rao inequality:
+
+```math
+Var(\hat{p}) \geq \frac{p(1-p)}{N}
+```
+
+where:
+
+- \( \hat{p} \) is the estimated source parameter
+- \( N \) is the number of collected samples
+
+This establishes the throughput–precision trade-off analyzed throughout the project.
 
 <p align="center">
   <img src="images/throughput_analysis.png" width="900"/>
