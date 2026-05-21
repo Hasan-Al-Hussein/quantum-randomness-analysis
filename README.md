@@ -1,6 +1,6 @@
 # Quantum Randomness Analysis
 
-Analytical framework for uncertainty propagation in beam-splitter-based quantum random number generators (QRNGs) and its impact on computational efficiency, throughput, and Gaussian random number generation.
+Analytical framework for uncertainty propagation in beam-splitter-based quantum random number generators (QRNGs) and its impact on extraction efficiency, computational cost, throughput, and Gaussian random number generation.
 
 <p align="center">
   <img src="images/qrng_pipeline.png" width="1000"/>
@@ -10,66 +10,83 @@ Analytical framework for uncertainty propagation in beam-splitter-based quantum 
 
 # Overview
 
-This project investigates how uncertainty in beam-splitter-based quantum random number generators propagates through randomness extraction and downstream computational processes.
+This research project investigates how uncertainty in beam-splitter-based quantum random number generators propagates through randomness extraction and downstream computational stages.
 
 The work focuses on:
-- Bernoulli modeling of QRNG sources
+
+- Quantum randomness generation
+- Bernoulli source modeling
 - Randomness extraction efficiency
 - Uncertainty propagation
+- Uniform random bit generation cost
+- Gaussian random number generation
 - Throughput degradation
 - Latency analysis
-- Gaussian random number generation cost
 
-The analysis establishes a unified relationship between physical source imperfections and computational overhead.
-
----
-
-# QRNG Processing Pipeline
-
-<p align="center">
-  <img src="images/qrng_pipeline.png" width="1000"/>
-</p>
-
-The system pipeline consists of:
-
-1. Beam-splitter quantum source
-2. Bernoulli process modeling
-3. Parameter estimation
-4. Randomness extraction
-5. Uniform bit generation
-6. Gaussian random number generation
-7. System-level performance analysis
+The project develops a unified analytical framework connecting physical source imperfections directly to computational performance overhead.
 
 ---
 
-# Extraction Efficiency Analysis
+# System Model
 
-## Core Efficiency Equation
-
-The von Neumann extraction efficiency is defined as:
+The QRNG source is modeled as a Bernoulli process:
 
 ```math
-\eta(p) = p(1-p)
+P(X=1)=p,\qquad P(X=0)=1-p
 ```
 
 where:
 
-- \( p \) represents the Bernoulli source parameter
-- \( \eta(p) \) represents extraction efficiency
+- \( p \) represents the beam-splitter transmissivity
+- \( X \) represents the measured quantum outcome
 
-The function reaches maximum efficiency at:
+Under ideal conditions:
 
 ```math
 p = 0.5
 ```
 
-which corresponds to an ideal unbiased quantum source.
+which corresponds to maximum entropy and unbiased randomness generation.
+
+---
+
+# Extraction Efficiency Analysis
+
+## Von Neumann Extraction Efficiency
+
+The extraction efficiency is defined as:
+
+```math
+\eta(p)=p(1-p)
+```
+
+where:
+
+- \( \eta(p) \) is the output efficiency
+- \( p \) is the Bernoulli source parameter
+
+The function reaches maximum efficiency at:
+
+```math
+\eta(0.5)=0.25
+```
+
+meaning that even ideal sources lose a significant portion of raw measurements during extraction.
+
+---
 
 <p align="center">
   <img src="images/extraction_efficiency.png" width="900"/>
 </p>
 
-## Sensitivity Approximation
+The graph illustrates:
+- maximum efficiency at \( p=0.5 \)
+- nonlinear degradation under bias
+- increasing sensitivity near the optimal operating point
+
+---
+
+# Sensitivity to Source Uncertainty
 
 Near the optimal operating point:
 
@@ -80,43 +97,65 @@ p = 0.5 - \delta p
 the extraction efficiency becomes:
 
 ```math
-\eta(0.5-\delta p) \approx 0.25 - (\delta p)^2
+\eta(0.5-\delta p)\approx0.25-(\delta p)^2
 ```
 
-This demonstrates the quadratic degradation in efficiency caused by parameter uncertainty.
+This demonstrates:
+- quadratic efficiency degradation
+- strong sensitivity to uncertainty
+- nonlinear computational overhead growth
 
 ---
 
-# Cost & Performance Analysis
+# Cost & Computational Analysis
 
 ## Uniform Bit Generation Cost
 
-The expected raw-bit cost for generating one unbiased random bit is:
+The expected raw-bit cost for generating one unbiased output bit is:
 
 ```math
-C_u(p) = \frac{1}{p(1-p)}
+C_u(p)=\frac{1}{p(1-p)}
 ```
 
 At the optimal operating point:
 
 ```math
-C_u(0.5) = 4
+C_u(0.5)=4
 ```
 
-meaning four raw quantum measurements are required on average for one unbiased output bit.
+meaning four raw quantum measurements are required on average for one unbiased random bit.
+
+---
+
+## Gaussian Random Number Generation Cost
+
+The Gaussian generation cost is modeled as:
+
+```math
+C_g(p)=\frac{2}{p(1-p)}
+```
+
+At ideal conditions:
+
+```math
+C_g(0.5)=8
+```
+
+showing that Gaussian random generation amplifies uncertainty-related computational cost.
+
+---
 
 <p align="center">
   <img src="images/cost_analysis_table.png" width="850"/>
 </p>
 
-The framework quantifies:
-- raw-bit cost
-- extraction efficiency
+The analysis quantifies:
+- extraction efficiency degradation
+- raw-bit generation cost
 - computational overhead
-- throughput degradation
-- latency increase
+- uncertainty amplification
 
-under varying source uncertainty conditions.
+under varying QRNG source conditions.
 
 ---
 
@@ -135,29 +174,34 @@ where:
 - \( \hat{p} \) is the estimated source parameter
 - \( N \) is the number of collected samples
 
-This establishes the throughput–precision trade-off analyzed throughout the project.
+This establishes the throughput–precision trade-off central to the project.
+
+---
 
 <p align="center">
   <img src="images/throughput_analysis.png" width="900"/>
 </p>
 
 The project evaluates how uncertainty affects:
+
 - randomness throughput
 - extraction efficiency
 - Gaussian generation latency
-- system-level performance stability
+- computational stability
+- system-level performance
 
-The analysis connects physical QRNG imperfections directly to computational resource cost.
+The framework directly links physical QRNG imperfections to measurable computational cost.
 
 ---
 
 # Key Contributions
 
-- Unified analytical framework for QRNG uncertainty propagation
-- Closed-form efficiency approximations
-- Cost models for uniform and Gaussian random generation
+- Unified framework for QRNG uncertainty propagation
+- Closed-form extraction efficiency approximations
+- Uniform and Gaussian random generation cost models
 - Throughput–precision trade-off analysis
 - System-level interpretation of uncertainty effects
+- Quantitative performance degradation analysis
 
 ---
 
@@ -171,13 +215,14 @@ The analysis connects physical QRNG imperfections directly to computational reso
 - Cramér–Rao bounds
 - Taylor approximation
 - Uncertainty propagation
+- Throughput modeling
 
 ## Computational Analysis
 
 - Python
 - Numerical evaluation
-- Performance modeling
-- Throughput analysis
+- Performance analysis
+- Cost modeling
 
 ---
 
@@ -186,10 +231,10 @@ The analysis connects physical QRNG imperfections directly to computational reso
 | Metric | Observation |
 |---|---|
 | Extraction Efficiency | Governed by \( p(1-p) \) |
-| Sensitivity | Quadratic near \( p = 0.5 \) |
+| Sensitivity | Quadratic near \( p=0.5 \) |
 | Uniform Bit Cost | Increases under source bias |
-| Gaussian Cost | Strongly affected by uncertainty |
-| Throughput | Degrades with estimation uncertainty |
+| Gaussian Generation Cost | Strongly affected by uncertainty |
+| Throughput | Degrades with parameter uncertainty |
 | Latency | Increases as uncertainty grows |
 
 ---
