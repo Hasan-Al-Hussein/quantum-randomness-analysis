@@ -2,11 +2,31 @@
 
 Analytical framework for uncertainty propagation in beam-splitter-based quantum random number generators (QRNGs) and its impact on extraction efficiency, computational cost, throughput, and Gaussian random number generation.
 
+> Research-style numerical and mathematical analysis connecting physical quantum source bias to practical computation cost.
+
 <p align="center">
   <img src="images/qrng_pipeline.png" width="1000"/>
 </p>
 
 ---
+
+## Plain-English Summary
+
+Quantum random number generators are only useful if their raw physical measurements can be converted into high-quality random bits efficiently. This project asks a practical question:
+
+> If the physical source is slightly biased or uncertain, how much extra computation does the system need to produce reliable random numbers?
+
+The analysis connects beam-splitter uncertainty to extraction efficiency, raw-bit cost, Gaussian random number generation cost, and throughput.
+
+## Project Snapshot
+
+| Area | Details |
+|---|---|
+| Topic | Quantum random number generation |
+| Model | Beam-splitter source modeled as a Bernoulli process |
+| Core question | How uncertainty affects extraction and computation |
+| Methods | Entropy analysis, Taylor approximation, Fisher information, throughput modeling |
+| Output | Analytical framework, plots, and technical report |
 
 # Overview
 
@@ -236,6 +256,14 @@ The framework directly links physical QRNG imperfections to measurable computati
 | Gaussian Generation Cost | Strongly affected by uncertainty |
 | Throughput | Degrades with parameter uncertainty |
 | Latency | Increases as uncertainty grows |
+
+---
+
+# Main Takeaway
+
+Even a small deviation from an ideal 50/50 quantum source can increase the raw measurements needed to produce usable random numbers. The cost becomes more visible when the random bits are used for Gaussian sampling, where uncertainty is amplified by the downstream generation process.
+
+This makes QRNG design a full system problem: the physics, estimator precision, extraction algorithm, and application-level throughput all affect the final cost.
 
 ---
 
