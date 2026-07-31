@@ -1,3 +1,9 @@
+<div align="center">
+  <img src="assets/repository-banner.svg" width="100%" alt="Quantum randomness uncertainty and computational-cost analysis" />
+  <br /><br />
+  <a href="https://github.com/Hasan-Al-Hussein"><img src="https://img.shields.io/badge/ENGINEERING_PORTFOLIO-0F172A?style=for-the-badge&logo=github&logoColor=white" alt="Back to Hasan Al Hussein's engineering portfolio" /></a>
+</div>
+
 # Quantum Randomness Analysis
 
 Analytical framework for uncertainty propagation in beam-splitter-based quantum random number generators (QRNGs) and its impact on extraction efficiency, computational cost, throughput, and Gaussian random number generation.
